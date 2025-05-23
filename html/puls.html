@@ -1,0 +1,308 @@
+﻿<!DOCT  YPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <meta id="viewport" name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="apple-touch-icon-precomposed" href="icon-precomposed.png" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <meta http-equiv="content-type" content="text/html, charset=utf-8"/>
+        <title>Pulse Ox Status</title>
+		<style>
+			html, body {
+				margin:0;
+				padding:0;
+				height:100%;
+				font-family: Helvetica;
+				color:#A0A0A0;
+			}
+			#full-size {
+				/*visibility:hidden;*/
+				height:100%;
+				width:100%;
+				position:absolute;
+				top:0;
+				left:0;
+				overflow:hidden;
+				background:#000;
+			}
+			#video {
+				/*You can add padding and margins here.*/
+				padding-top: 56.25%;
+				max-width:177.78vh;
+				background-image: url("http://192.168.2.31/cgi-bin/CGIStream.cgi");
+				/*background-image: url("demo/bild.jpg");*/
+				background-position: top left;
+				background-repeat: no-repeat;
+			}
+			@media (min-aspect-ratio: 11/10) {
+				#video {
+					/* quer */
+					background-size: 100% 100%;
+				}
+				#content {
+					height:100%;
+					width:100%;
+					position:absolute;
+					top:0;
+					left:0;	
+					text-align:right;
+				}
+				.value, .value2 {
+					font-weight:bold; 
+					clear:right; 
+					float:right; 
+					font-size:15vh; 
+					text-align:right;
+					width:30vh;
+					background-color:rgba(0, 0, 0, 0.3);	
+				}
+				.time { 
+					width:30vh; 
+					text-align:right; 
+					float:right; 
+					clear:both; 
+					font-weight:bold; 
+					font-size:3vh;
+					background-color:rgba(0, 0, 0, 0.3); 
+				}
+				#ttime {font-size:2.25vh}
+				.exc   {font-size:2.75vh;}
+				.alarm {font-size:2.75vh;}
+				.exc   div {margin:0.5vh; padding:0.5vh;}	
+				.alarm div {margin:0.5vh; padding:0.5vh;}	
+				.value2 {
+					width:30vh;
+					font-size:6.5vh; 
+				}	
+				#humi {
+					font-size:4.5vh;
+				}
+			}
+			@media (max-aspect-ratio: 11/10) and (min-aspect-ratio: 89/100){
+				#video {
+					/* hoch */
+					background-size: 100% 100%;
+				}
+				#content {
+					height:100%;
+					width:100%;
+					position:absolute;
+					bottom:0;
+					left:0;	
+					text-align:left;
+				}
+				.value, .value2 {
+					font-weight:bold; 
+					float:left;
+					font-size:10vw; 
+					text-align:left;
+					width:20vw;
+					background-color:rgba(0, 0, 0, 0.3);	
+				}
+				.time { 
+					width:60vw; 
+					clear:both; 
+					font-weight:bold; 
+					font-size:2vw;
+					background-color:rgba(0, 0, 0, 0.3); 
+				}			
+				.exc   {font-size:2vw;}
+				.alarm {font-size:2vw;}
+				.exc   div {margin:0.2vw; padding:0.2vw;}	
+				.alarm div {margin:0.2vw; padding:0.2vw;}	
+				#values {
+					position:absolute; top:56.75vw; 
+					width:100%;
+				}
+				.value2 {
+					width:60vw;
+					font-size:6.5vw; 
+				}	
+				#humi {
+					font-size:4.5vw;
+				}
+			}
+			@media (max-aspect-ratio: 89/100) {
+				#video {
+					/* hoch */
+					background-size: 100% 100%;
+				}
+				#content {
+					height:100%;
+					width:100%;
+					position:absolute;
+					bottom:0;
+					left:0;	
+					text-align:left;
+				}
+				.value, .value2 {
+					font-weight:bold; 
+					float:left;
+					font-size:15vw; 
+					text-align:left;
+					width:30vw;
+					background-color:rgba(0, 0, 0, 0.3);	
+				}
+				.time { 
+					width:60vw; 
+					clear:both; 
+					font-weight:bold; 
+					font-size:3vw;
+					background-color:rgba(0, 0, 0, 0.3); 
+				}			
+				.exc   {font-size:2.75vw;}
+				.alarm {font-size:2.75vw;}
+				.exc   div {margin:0.3vw; padding:0.3vw;}	
+				.alarm div {margin:0.3vw; padding:0.3vw;}	
+				#values {
+					position:absolute; top:56.75vw; 
+					width:100%;
+				}
+				.value2 {
+					width:60vw;
+					font-size:12vw; 
+				}	
+				#humi {
+					font-size:8vw;
+				}
+			}
+			#BPM  {color:green;}
+			#SPO2 {color:#AA0000;}
+			.value2  {color:darkgreen;}
+			.r { color: #AA0000; }
+			.o { color: #8B4500; }
+			.y { color: #303030; }
+			.h {color:#909090;}
+			.g { visibility:hidden;  display: none;}
+			/*.g { color: #00ff00;}*/
+			#errors {position:absolute; bottom:0; }
+			.exc   {font-weight:bold; float:left; width: 98vw}
+			.alarm {font-weight:bold; float:left; width: 98vw}
+			.exc   div {background-color:rgba(0, 0, 0, 0.7); float:left;}	
+			.alarm div {background-color:rgba(0, 0, 0, 0.7); float:left;}
+		</style>
+	<script src="jquery.min.js"></script>
+	<script>
+		$.urlParam = function(name){
+		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		    if (results==null){
+		       return null;
+		    }
+		    else{
+		       return decodeURI(results[1]) || 0;
+		    }
+		}
+		
+		var jsonfile = '//192.168.2.32/pox.json';
+		var jsontemperature = 'temperature.json';
+		function get_temperature() {
+			var date = new Date();
+			var timest = date.getTime();
+			
+			$.ajax({
+				cache: false,
+				success: function(results) {
+					$("#temp").text(results.temperature+" °C");
+					$("#humi").text(results.humidity+" %");
+					var age = Math.round((timest - results.timestamp)/1000)
+					var myh = Math.floor(age/3600);
+					var mym = Math.floor(age/60)%60;
+					//var mys = age%60;
+					var occ = Math.max((1 - (age/7200)), 0.2) ;
+					var rgbaCol = 'rgba(0,100,0,' + occ + ')';
+					var rgbaCol2 = 'rgba(160,160,160,' + occ + ')';
+					$("#ttime").text("letzte Messung vor "+ myh + ":" +("0" + mym).slice(-2)+" h ");
+					$(".value2").css("color", rgbaCol);
+					$("#ttime").css("color", rgbaCol2);
+				},
+				url: jsontemperature 
+			});
+		}
+		function get_pox() {
+		$.ajax({
+			cache: false,
+			success: function(results) {
+				$("#time").text(results.SampleDate);
+				$("#sleep").text("Bett: "+results.sleep+" | "+results.sleep2);
+				$("#BPM").text(results.BPM);
+				$("#SPO2").text(results.SPO2);
+				$("#a").text(results.ALARM);
+				$("#e").text(results.EXC);
+				$("#time").toggleClass("h");
+				$("#E1").attr('class', results.CSS.E1);
+				$("#E2").attr('class', results.CSS.E2);
+				$("#E3").attr('class', results.CSS.E3);
+				$("#E4").attr('class', results.CSS.E4);
+				$("#E5").attr('class', results.CSS.E5);
+				$("#E6").attr('class', results.CSS.E6);
+				$("#E7").attr('class', results.CSS.E7);
+				$("#E8").attr('class', results.CSS.E8);
+				$("#E11").attr('class', results.CSS.E11);
+				$("#E12").attr('class', results.CSS.E12);
+				$("#A1").attr('class', results.CSS.A1);
+				$("#A2").attr('class', results.CSS.A2);
+				$("#A3").attr('class', results.CSS.A3);
+				$("#A4").attr('class', results.CSS.A4);
+				$("#A5").attr('class', results.CSS.A5);
+				$("#A6").attr('class', results.CSS.A6);
+				$("#A7").attr('class', results.CSS.A7);
+				$("#A8").attr('class', results.CSS.A8);
+			},
+			url: jsonfile
+		});
+		}
+
+		$(document).ready(function(){
+			toggle = false;
+			get_pox();
+			setInterval(
+				get_pox
+			, 1000);
+			get_temperature();
+			setInterval(
+			get_temperature
+			, 10000);
+		});
+	</script>
+</head>
+<body>
+<div id="full-size">
+    <div id="video"></div>
+	<div id="content">
+		<div id="values">
+			<div id="time" class="time">01.01.1900 00:00:00</div>
+			<div id="BPM"  class="value">888</div>
+			<div id="SPO2" class="value">888</div>
+		</div>
+		<div id="errors">
+<!--			<div id="temp" class="value2">00.0 °C</div>
+			<div id="humi" class="value2">55.5 %</div>
+			<div id="ttime" class="time">letzte Messung vor 9:99 h</div>
+-->
+			<div class="exc">
+				<div id="E1">No Sensor</div>
+				<div id="E2">Defective Sensor</div>
+				<div id="E3">Low Perfusion</div>
+				<div id="E4">Pulse Search</div>
+				<div id="E5">Interference</div>
+				<div id="E6">Sensor Off</div>
+				<div id="E7">Ambient Light</div>
+				<div id="E8">Unrec. Sensor</div>
+				<div id="E11">Low Signal IQ</div>
+<!--				<div id="E12">Masimo SET</div>	-->
+			</div>
+			<div class="alarm">
+				<div id="A1">&#x1f53A;&nbsp;SPO2</div>
+				<div id="A2">&#x1f53B;&nbsp;SPO2</div>
+				<div id="A3">&#x1f53A;&nbsp;BPM</div>
+				<div id="A4">&#x1f53B;&nbsp;BPM</div>
+				<div id="A5">&#x1f50A;&nbsp;Alarm</div>
+				<div id="A6">&#x1f507;&nbsp;mute</div>
+				<div id="A7">&#x1f53B;&nbsp;Batt</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
