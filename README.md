@@ -6,7 +6,7 @@ Scripts and dashboards for reading data from a pulse oximeter (POX) and visualiz
 
 ## Features
 
-- Read data from a pulse oximeter device
+- Read data from a pulse oximeter device (Masimo RAD-97)
 - Display heart rate and oxygen saturation in a web interface (HTML)
 - Grafana dashboards for real-time and historical POX data
 - Open source and modifiable under AGPL-3.0
